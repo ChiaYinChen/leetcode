@@ -4,21 +4,35 @@ https://leetcode.com/problems/house-robber/
 """
 
 
+# class Solution:
+#     def rob(self, nums: list[int]) -> int:
+#         _size = len(nums)
+#         if _size == 1:
+#             return nums[0]
+#         elif _size == 2:
+#             return max(nums[0], nums[1])
+#
+#         dp = [0 for _ in range(_size)]
+#         dp[0] = nums[0]
+#         dp[1] = max(nums[0], nums[1])
+#         for i in range(2, _size):
+#             dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+#
+#         return dp[-1]
+
+
 class Solution:
     def rob(self, nums: list[int]) -> int:
-        _size = len(nums)
-        if _size == 1:
-            return nums[0]
-        elif _size == 2:
-            return max(nums[0], nums[1])
+        if len(nums) <= 2:
+            return max(nums)
 
-        dp = [0 for _ in range(_size)]
-        dp[0] = nums[0]
-        dp[1] = max(nums[0], nums[1])
-        for i in range(2, _size):
-            dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+        h0, h1 = 0, 0
+        for num in nums:
+            ans = max(h1, h0 + num)
+            h0 = h1
+            h1 = ans
 
-        return dp[-1]
+        return ans
 
 
 def main():
